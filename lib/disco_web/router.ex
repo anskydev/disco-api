@@ -1,13 +1,13 @@
 defmodule DiscoWeb.Router do
   use DiscoWeb, :router
 
-  pipeline :browser do
-    plug(:accepts, ["html"])
-    plug(:fetch_session)
-    plug(:fetch_flash)
-    plug(:protect_from_forgery)
-    plug(:put_secure_browser_headers)
-  end
+  # pipeline :browser do
+  #   plug(:accepts, ["html"])
+  #   plug(:fetch_session)
+  #   plug(:fetch_flash)
+  #   plug(:protect_from_forgery)
+  #   plug(:put_secure_browser_headers)
+  # end
 
   pipeline :api do
     plug(:accepts, ["json"])
@@ -21,7 +21,8 @@ defmodule DiscoWeb.Router do
 
     forward("/graphiql", Absinthe.Plug.GraphiQL,
       schema: DiscoWeb.Schema,
-      socket: DiscoWeb.UserSocket
+      socket: DiscoWeb.UserSocket,
+      interface: :playground
     )
   end
 end

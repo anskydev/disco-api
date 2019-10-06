@@ -16,6 +16,6 @@ config :disco, Disco.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "plate_slate_test",
+  database: "disco_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

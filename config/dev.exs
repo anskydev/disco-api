@@ -42,8 +42,8 @@ config :disco, DiscoWeb.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/plate_slate_web/views/.*(ex)$},
-      ~r{lib/plate_slate_web/templates/.*(eex)$}
+      ~r{lib/disco_web/views/.*(ex)$},
+      ~r{lib/disco_web/templates/.*(eex)$}
     ]
   ]
 
@@ -59,6 +59,6 @@ config :disco, Disco.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "plate_slate_dev",
+  database: "disco_dev",
   hostname: "localhost",
   pool_size: 10

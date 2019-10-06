@@ -29,7 +29,7 @@ defmodule DiscoWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/plate_slate_web/templates",
+        root: "lib/disco_web/templates",
         namespace: DiscoWeb
 
       # Import convenience functions from controllers

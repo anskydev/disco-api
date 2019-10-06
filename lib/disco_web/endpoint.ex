@@ -40,7 +40,7 @@ defmodule DiscoWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug(Plug.Session,
     store: :cookie,
-    key: "_plate_slate_key",
+    key: "_disco_key",
     signing_salt: "JhZx2Aii"
   )
 

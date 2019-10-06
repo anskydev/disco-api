@@ -46,8 +46,10 @@ defmodule Disco.Mixfile do
       {:phoenix_html, "~> 2.13.3"},
       {:phoenix_live_reload, "~> 1.1.7", only: :dev},
       {:gettext, "~> 0.17.0"},
-      {:cowboy, "~> 1.1.2"},
+      {:cowboy, "~> 1.0.0"},
+      {:plug_cowboy, "~> 1.0.0"},
       {:absinthe, "~> 1.4.16"},
+      {:jason, "~> 1.0.0"},
       {:absinthe_plug, "~> 1.4.7"},
       {:absinthe_phoenix, "~> 1.4.3"},
       {:absinthe_relay, "~> 1.4.6"}

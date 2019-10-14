@@ -11,7 +11,7 @@ defmodule DiscoWeb.Context do
 
   defp build_context(conn) do
     with ["Bearer " <> token] <- get_req_header(conn, "authorization"),
-         {:ok, data} <- DiscoWeb.Authentication.verify(token),
+         {:ok, data} <- DiscoWeb.Authentication.verify(token, :login),
          %{} = user <- get_user(data) do
       %{current_user: user}
     else
@@ -19,7 +19,7 @@ defmodule DiscoWeb.Context do
     end
   end
 
-  defp get_user(%{id: id, role: role}) do
-    Disco.Accounts.lookup(role, id)
+  defp get_user(%{id: id}) do
+    Disco.Accounts.lookup(id)
   end
 end

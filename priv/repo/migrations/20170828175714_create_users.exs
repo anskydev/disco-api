@@ -6,11 +6,11 @@ defmodule Disco.Repo.Migrations.CreateUsers do
       add(:name, :string)
       add(:email, :string)
       add(:password, :string)
-      add(:role, :string)
+      add(:verified, :boolean)
 
       timestamps()
     end
 
-    create(unique_index(:users, [:email, :role]))
+    create(unique_index(:users, [:email]))
   end
 end

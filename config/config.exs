@@ -5,7 +5,7 @@
 # is restricted to this project.
 use Mix.Config
 
-config :comeonin, Ecto.Password, Comeonin.Pbkdf2
+config :comeonin, Ecto.Password, Comeonin.Argon2
 
 # General application configuration
 config :disco,
@@ -14,8 +14,7 @@ config :disco,
 # Configures the endpoint
 config :disco, DiscoWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "JbSS+mF2qR3w+3PdYK4g4uBwTA48ZGF6sHpkt0tynRf4EIyrMp0aPb1CAmMgkrkL",
-  render_errors: [view: DiscoWeb.ErrorView, accepts: ~w(html json)],
+  secret_key_base: System.get_env("KEY_BASE"),
   pubsub: [name: Disco.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

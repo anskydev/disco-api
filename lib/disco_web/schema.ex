@@ -74,7 +74,6 @@ defmodule DiscoWeb.Schema do
     field :login, :session do
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
-      arg(:role, non_null(:role))
       resolve(&Resolvers.Accounts.login/3)
 
       middleware(fn res, _ ->
@@ -84,28 +83,44 @@ defmodule DiscoWeb.Schema do
       end)
     end
 
-    field :ready_order, :order_result do
-      arg(:id, non_null(:id))
-      resolve(&Resolvers.Ordering.ready_order/3)
-    end
-
-    field :complete_order, :order_result do
-      arg(:id, non_null(:id))
-      resolve(&Resolvers.Ordering.complete_order/3)
-    end
-
-    field :place_order, :order_result do
-      arg(:input, non_null(:place_order_input))
-      middleware(Middleware.Authorize, :any)
-      resolve(&Resolvers.Ordering.place_order/3)
-    end
-
-    field :create_menu_item, :menu_item_result do
-      arg(:input, non_null(:menu_item_input))
-      middleware(Middleware.Authorize, "employee")
-      resolve(&Resolvers.Menu.create_item/3)
+    field :register, :user do
+      arg(:name, non_null(:string))
+      arg(:email, non_null(:string))
+      arg(:password, non_null(:string))
+      resolve(&Resolvers.Accounts.register/3)
     end
   end
+
+  # mutation do
+  #   field :create_user, :session do
+  #     arg(:name, non_null(:string))
+  #     arg(:email, non_null(:string))
+  #     arg(:password, non_null(:string))
+  #   end
+  # end
+
+  #   field :ready_order, :order_result do
+  #     arg(:id, non_null(:id))
+  #     resolve(&Resolvers.Ordering.ready_order/3)
+  #   end
+
+  #   field :complete_order, :order_result do
+  #     arg(:id, non_null(:id))
+  #     resolve(&Resolvers.Ordering.complete_order/3)
+  #   end
+
+  #   field :place_order, :order_result do
+  #     arg(:input, non_null(:place_order_input))
+  #     middleware(Middleware.Authorize, :any)
+  #     resolve(&Resolvers.Ordering.place_order/3)
+  #   end
+
+  #   field :create_menu_item, :menu_item_result do
+  #     arg(:input, non_null(:menu_item_input))
+  #     middleware(Middleware.Authorize, "employee")
+  #     resolve(&Resolvers.Menu.create_item/3)
+  #   end
+  # end
 
   subscription do
     field :update_order, :order do

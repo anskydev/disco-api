@@ -1,19 +1,30 @@
 defmodule DiscoWeb.Resolvers.Accounts do
-  alias Disco.Accounts
+  alias Disco.{Accounts, Accounts.User}
+  alias DiscoWeb.{Router.Helpers, Authentication}
 
-  def login(_, %{email: email, password: password, role: role}, _) do
-    case Accounts.authenticate(role, email, password) do
+  def login(_, %{email: email, password: password}, _) do
+    case Accounts.authenticate(email, password) do
       {:ok, user} ->
-        token =
-          DiscoWeb.Authentication.sign(%{
-            role: role,
-            id: user.id
-          })
-
+        token = Authentication.sign(%{id: user.id})
         {:ok, %{token: token, user: user}}
 
       _ ->
         {:error, "incorrect email or password"}
+    end
+  end
+
+  def register(_, args, _) do
+    case Accounts.register(args) do
+      {:ok, %User{name: name, email: email, id: id}} ->
+        token = Authentication.sign(%{id: id})
+        verification_url = Helpers.register_verification_url(DiscoWeb.Endpoint, :index, token)
+
+        Accounts.send_verification_email(name, verification_url)
+
+        {:ok, %{name: name, email: email}}
+
+      {:error, message} ->
+        {:error, message}
     end
   end
 

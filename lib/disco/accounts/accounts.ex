@@ -9,8 +9,8 @@ defmodule Disco.Accounts do
 
   alias Disco.Accounts.User
 
-  def authenticate(role, email, password) do
-    user = Repo.get_by(User, role: to_string(role), email: email)
+  def authenticate(email, password) do
+    user = Repo.get_by(User, email: email)
 
     with %{password: digest} <- user,
          true <- Password.valid?(password, digest) do
@@ -20,7 +20,29 @@ defmodule Disco.Accounts do
     end
   end
 
-  def lookup(role, id) do
-    Repo.get_by(User, role: to_string(role), id: id)
+  def register(user_data) do
+    case User.register_changeset(%User{}, user_data) do
+      {:ok, user} ->
+        {:ok, user}
+
+      {:error, _} ->
+        {:error, "email is already in use."}
+    end
+  end
+
+  def send_verification_email(user_name, verification_url) do
+    IO.inspect(user_name: user_name, verification_url: verification_url)
+  end
+
+  def verify_account(user_id) do
+    user = Disco.Accounts.lookup(user_id)
+
+    unless user.verified == true do
+      User.update_changeset(user_id, %{verified: true})
+    end
+  end
+
+  def lookup(id) do
+    Repo.get_by(User, id: id)
   end
 end

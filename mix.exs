@@ -35,9 +35,8 @@ defmodule Disco.Mixfile do
   defp deps do
     [
       {:dataloader, "~> 1.0.6"},
-      # Other deps
       {:comeonin_ecto_password, "~> 2.2.0"},
-      {:pbkdf2_elixir, "~> 0.12.4"},
+      {:argon2_elixir, "~> 1.3.0"},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.1.2"},
       {:phoenix_ecto, "~> 3.6.0"},

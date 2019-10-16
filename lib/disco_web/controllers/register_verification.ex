@@ -3,7 +3,7 @@ defmodule DiscoWeb.RegisterVerification do
 
   def index(conn, %{"token" => token}) do
     status =
-      case DiscoWeb.Authentication.verify(token) do
+      case DiscoWeb.Authentication.verify(token, :register) do
         {:ok, %{id: id}} ->
           Disco.Accounts.verify_account(id)
           "verified"

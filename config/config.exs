@@ -9,7 +9,9 @@ config :comeonin, Ecto.Password, Comeonin.Argon2
 
 # General application configuration
 config :disco,
-  ecto_repos: [Disco.Repo]
+  ecto_repos: [Disco.Repo],
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_key: System.get_env("MAILGUN_API_KEY")
 
 # Configures the endpoint
 config :disco, DiscoWeb.Endpoint,
@@ -21,6 +23,8 @@ config :disco, DiscoWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

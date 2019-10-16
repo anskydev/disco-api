@@ -1,5 +1,5 @@
 defmodule DiscoWeb.Resolvers.Accounts do
-  alias Disco.{Accounts, Accounts.User}
+  alias Disco.{Accounts, Accounts.User, Mailer}
   alias DiscoWeb.{Router.Helpers, Authentication}
 
   def login(_, %{email: email, password: password}, _) do
@@ -16,11 +16,10 @@ defmodule DiscoWeb.Resolvers.Accounts do
   def register(_, args, _) do
     case Accounts.register(args) do
       {:ok, %User{name: name, email: email, id: id}} ->
-        token = Authentication.sign(%{id: id})
+        token = Authentication.sign(%{id: id}, :register)
         verification_url = Helpers.register_verification_url(DiscoWeb.Endpoint, :index, token)
 
-        Accounts.send_verification_email(name, verification_url)
-
+        Mailer.send_verification_email(email, name, verification_url)
         {:ok, %{name: name, email: email}}
 
       {:error, message} ->

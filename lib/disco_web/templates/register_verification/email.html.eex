@@ -1,0 +1,7 @@
+<div>
+  <h1>welcome to Disco <%= @name %>!</h1>
+  <br />
+  <p>Please follow the next link to verify your account:</p>
+  <br />
+  <a href="<%= @url %>">verify</a>
+</div>

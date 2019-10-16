@@ -51,7 +51,9 @@ defmodule Disco.Mixfile do
       {:jason, "~> 1.0.0"},
       {:absinthe_plug, "~> 1.4.7"},
       {:absinthe_phoenix, "~> 1.4.3"},
-      {:absinthe_relay, "~> 1.4.6"}
+      {:absinthe_relay, "~> 1.4.6"},
+      {:mailgun, "~> 0.1.2"},
+      {:poison, "~> 2.1", override: true}
     ]
   end
 

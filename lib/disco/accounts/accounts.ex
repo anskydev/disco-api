@@ -30,10 +30,6 @@ defmodule Disco.Accounts do
     end
   end
 
-  def send_verification_email(user_name, verification_url) do
-    IO.inspect(user_name: user_name, verification_url: verification_url)
-  end
-
   def verify_account(user_id) do
     user = Disco.Accounts.lookup(user_id)
 

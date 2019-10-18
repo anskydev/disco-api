@@ -53,7 +53,10 @@ defmodule Disco.Mixfile do
       {:absinthe_phoenix, "~> 1.4.3"},
       {:absinthe_relay, "~> 1.4.6"},
       {:mailgun, "~> 0.1.2"},
-      {:poison, "~> 2.1", override: true}
+      {:poison, "~> 2.1.0", override: true},
+      {:crudry, "~> 2.1.0"},
+      {:ecto, "~> 3.2.3", override: true},
+      {:ecto_sql, "~> 3.2.0"}
     ]
   end
 

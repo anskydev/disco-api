@@ -3,20 +3,16 @@ defmodule DiscoWeb.Schema do
 
   alias DiscoWeb.Resolvers
   alias DiscoWeb.Schema.Middleware
+  alias Crudry.Middlewares.TranslateErrors
 
   def middleware(middleware, field, object) do
     middleware
     |> apply(:errors, field, object)
-    |> apply(:get_string, field, object)
     |> apply(:debug, field, object)
   end
 
   defp apply(middleware, :errors, _field, %{identifier: :mutation}) do
-    middleware ++ [Middleware.ChangesetErrors]
-  end
-
-  defp apply([], :get_string, field, %{identifier: :allergy_info}) do
-    [{Absinthe.Middleware.MapGet, to_string(field.identifier)}]
+    middleware ++ [TranslateErrors]
   end
 
   defp apply(middleware, :debug, _field, _object) do
@@ -56,22 +52,20 @@ defmodule DiscoWeb.Schema do
       resolve(&Resolvers.Accounts.me/3)
     end
 
-    # Other query fields
-
     field :menu_items, list_of(:menu_item) do
       arg(:filter, :menu_item_filter)
       arg(:order, type: :sort_order, default_value: :asc)
       resolve(&Resolvers.Menu.menu_items/3)
     end
 
-    field :search, list_of(:search_result) do
-      arg(:matching, non_null(:string))
-      resolve(&Resolvers.Menu.search/3)
+    field :verify_password, :boolean do
+      arg(:password, non_null(:string))
+      resolve(&Resolvers.Accounts.verify_password/3)
     end
   end
 
   mutation do
-    field :login, :session do
+    field :login, :user_session_result do
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
       resolve(&Resolvers.Accounts.login/3)
@@ -83,11 +77,18 @@ defmodule DiscoWeb.Schema do
       end)
     end
 
-    field :register, :user do
+    field :register, :user_result do
       arg(:name, non_null(:string))
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
       resolve(&Resolvers.Accounts.register/3)
+    end
+
+    field :update_user, :user_result do
+      arg(:name, :string)
+      arg(:email, :string)
+      arg(:password, :string)
+      resolve(&Resolvers.Accounts.update/3)
     end
   end
 

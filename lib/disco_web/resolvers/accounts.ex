@@ -6,6 +6,9 @@ defmodule DiscoWeb.Resolvers.Accounts do
     case Accounts.authenticate(email, password) do
       {:ok, user} ->
         token = Authentication.sign(%{id: user.id})
+
+        # TODO: check if user is verified?
+
         {:ok, %{token: token, user: user}}
 
       :error ->

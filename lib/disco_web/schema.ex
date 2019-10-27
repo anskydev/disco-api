@@ -45,6 +45,7 @@ defmodule DiscoWeb.Schema do
   import_types(__MODULE__.MenuTypes)
   import_types(__MODULE__.OrderingTypes)
   import_types(__MODULE__.AccountsTypes)
+  import_types(__MODULE__.GroupsTypes)
 
   query do
     field :me, :user do
@@ -90,38 +91,21 @@ defmodule DiscoWeb.Schema do
       arg(:password, :string)
       resolve(&Resolvers.Accounts.update/3)
     end
+
+    field :logout, :boolean do
+      resolve(fn _, _, _ -> {:ok, true} end)
+
+      middleware(fn res, _ ->
+        %{res | context: Map.put(res.context, :current_user, %{})}
+      end)
+    end
+
+    field :create_group, :group_result do
+      arg(:name, non_null(:string))
+      arg(:friendly_id, :string)
+      resolve(&Resolvers.Groups.create/3)
+    end
   end
-
-  # mutation do
-  #   field :create_user, :session do
-  #     arg(:name, non_null(:string))
-  #     arg(:email, non_null(:string))
-  #     arg(:password, non_null(:string))
-  #   end
-  # end
-
-  #   field :ready_order, :order_result do
-  #     arg(:id, non_null(:id))
-  #     resolve(&Resolvers.Ordering.ready_order/3)
-  #   end
-
-  #   field :complete_order, :order_result do
-  #     arg(:id, non_null(:id))
-  #     resolve(&Resolvers.Ordering.complete_order/3)
-  #   end
-
-  #   field :place_order, :order_result do
-  #     arg(:input, non_null(:place_order_input))
-  #     middleware(Middleware.Authorize, :any)
-  #     resolve(&Resolvers.Ordering.place_order/3)
-  #   end
-
-  #   field :create_menu_item, :menu_item_result do
-  #     arg(:input, non_null(:menu_item_input))
-  #     middleware(Middleware.Authorize, "employee")
-  #     resolve(&Resolvers.Menu.create_item/3)
-  #   end
-  # end
 
   subscription do
     field :update_order, :order do

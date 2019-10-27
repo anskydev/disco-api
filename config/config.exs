@@ -5,7 +5,7 @@
 # is restricted to this project.
 use Mix.Config
 
-config :comeonin, Ecto.Password, Comeonin.Argon2
+config :comeonin, Ecto.Password, Argon2
 
 # General application configuration
 config :disco,

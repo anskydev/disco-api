@@ -35,11 +35,11 @@ defmodule Disco.Mixfile do
   defp deps do
     [
       {:dataloader, "~> 1.0.6"},
-      {:comeonin_ecto_password, "~> 2.2.0"},
-      {:argon2_elixir, "~> 1.3.0"},
-      {:phoenix, "~> 1.3.4"},
+      {:comeonin_ecto_password, "~> 3.0.0"},
+      {:argon2_elixir, "~> 2.1.0"},
+      {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1.2"},
-      {:phoenix_ecto, "~> 3.6.0"},
+      {:phoenix_ecto, "~> 4.0.0"},
       {:decimal, "~> 1.8.0"},
       {:postgrex, ">= 0.13.5"},
       {:phoenix_html, "~> 2.13.3"},
@@ -55,8 +55,9 @@ defmodule Disco.Mixfile do
       {:mailgun, "~> 0.1.2"},
       {:poison, "~> 2.1.0", override: true},
       {:crudry, "~> 2.1.0"},
-      {:ecto, "~> 3.2.3", override: true},
-      {:ecto_sql, "~> 3.2.0"}
+      {:ecto, "~> 3.2.0"},
+      {:ecto_sql, "~> 3.2.0"},
+      {:randomizer, "~> 1.1.0"}
     ]
   end
 

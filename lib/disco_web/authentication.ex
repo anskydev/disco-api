@@ -3,6 +3,7 @@ defmodule DiscoWeb.Authentication do
 
   def sign(data, session_type \\ :login) do
     opts = if session_type == :register, do: [key_length: 16], else: []
+
     Phoenix.Token.sign(DiscoWeb.Endpoint, @user_salt, data, opts)
   end
 

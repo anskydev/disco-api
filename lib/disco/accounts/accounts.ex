@@ -21,18 +21,16 @@ defmodule Disco.Accounts do
   end
 
   def verify_account(user_id) do
-    user = Disco.Accounts.lookup(user_id)
+    user = get_user!(user_id)
 
     unless user.verified == true do
-      User.update_changeset(user_id, %{verified: true})
+      update_user(user, %{verified: true})
     end
   end
 
   def lookup(id) do
     Repo.get_by(User, id: id)
   end
-
-  alias Disco.Accounts.User
 
   @doc """
   Returns the list of users.

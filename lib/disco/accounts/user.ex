@@ -8,6 +8,7 @@ defmodule Disco.Accounts.User do
     field(:name, :string)
     field(:password, Comeonin.Ecto.Password)
     field(:verified, :boolean, default: false)
+    many_to_many(:groups, Disco.Groups.Group, join_through: "groups_participants")
 
     timestamps()
   end

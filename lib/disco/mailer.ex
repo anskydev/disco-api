@@ -1,5 +1,5 @@
 defmodule Disco.Mailer do
-  @from "register@discow.app"
+  @from "Disco Register <register@discow.app>"
 
   use Mailgun.Client,
     domain: Application.get_env(:disco, :mailgun_domain),
